@@ -1,0 +1,1523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>twistbobi — Stylish Website to APK Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace']
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    :root {
+      --bg-base: #FFFFFF;
+      --bg-glow-1: rgba(30, 58, 138, 0.06);
+      --bg-glow-2: rgba(30, 58, 138, 0.04);
+      --card-bg: #FFFFFF;
+      --card-border: rgba(30, 58, 138, 0.18);
+      --accent-from: #1E3A8A;
+      --accent-via: #1E3A8A;
+      --accent-to: #1E3A8A;
+    }
+    body[data-theme="royal"] {
+      background-color: #FFFFFF !important;
+      color: #1E3A8A !important;
+    }
+    body[data-theme="royal"] #mainHeader {
+      background-color: #1E3A8A !important;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2) !important;
+    }
+    body[data-theme="royal"] #mainHeader * {
+      color: #FFFFFF !important;
+    }
+    body[data-theme="royal"] #mainHeader .bg-slate-900\/90,
+    body[data-theme="royal"] #mainHeader .bg-slate-900\/80,
+    body[data-theme="royal"] #mainHeader .bg-white\/10 {
+      background-color: rgba(255, 255, 255, 0.15) !important;
+      border-color: rgba(255, 255, 255, 0.25) !important;
+    }
+    body[data-theme="royal"] .glass-card {
+      background: #FFFFFF !important;
+      border: 1px solid rgba(30, 58, 138, 0.2) !important;
+      box-shadow: 0 10px 28px -12px rgba(30, 58, 138, 0.15) !important;
+    }
+    body[data-theme="royal"] .text-white:not(header *):not(.accent-gradient):not(.accent-gradient *):not(#phoneStatusBar *):not(#phoneAppHeader *):not(#phoneSplashView *):not(#phoneLauncherView *):not(#btnDownloadProjectZip):not(#btnDownloadProjectZip *):not(.icon-shape-btn.bg-indigo-600):not(.preset-icon-btn) {
+      color: #1E3A8A !important;
+    }
+    body[data-theme="royal"] .text-slate-100,
+    body[data-theme="royal"] .text-slate-200,
+    body[data-theme="royal"] .text-slate-300 {
+      color: #1e293b !important;
+    }
+    body[data-theme="royal"] .text-slate-400 {
+      color: #475569 !important;
+    }
+    body[data-theme="royal"] .bg-slate-950\/90,
+    body[data-theme="royal"] .bg-slate-950\/80,
+    body[data-theme="royal"] .bg-slate-950\/75,
+    body[data-theme="royal"] .bg-slate-950\/70,
+    body[data-theme="royal"] .bg-slate-950\/50 {
+      background-color: #f8fafc !important;
+      border-color: rgba(30, 58, 138, 0.22) !important;
+      color: #1E3A8A !important;
+    }
+    body[data-theme="royal"] .bg-slate-800\/90,
+    body[data-theme="royal"] .bg-slate-800 {
+      background-color: #FFFFFF !important;
+      border: 1px solid rgba(30, 58, 138, 0.3) !important;
+      color: #1E3A8A !important;
+    }
+    body[data-theme="royal"] .icon-shape-btn.bg-indigo-600 {
+      background-color: #1E3A8A !important;
+      color: #FFFFFF !important;
+    }
+    body[data-theme="royal"] input,
+    body[data-theme="royal"] select {
+      background-color: #FFFFFF !important;
+      border-color: rgba(30, 58, 138, 0.3) !important;
+      color: #0f172a !important;
+    }
+    body[data-theme="royal"] .text-indigo-300,
+    body[data-theme="royal"] .text-indigo-400,
+    body[data-theme="royal"] .text-violet-300 {
+      color: #1E3A8A !important;
+    }
+    body[data-theme="royal"] .bg-indigo-500\/15,
+    body[data-theme="royal"] .bg-violet-500\/15,
+    body[data-theme="royal"] .bg-emerald-500\/15 {
+      background-color: rgba(30, 58, 138, 0.08) !important;
+      border-color: rgba(30, 58, 138, 0.2) !important;
+    }
+    body[data-theme="royal"] pre,
+    body[data-theme="royal"] #generatedFileViewer,
+    body[data-theme="royal"] #buildLogOutput {
+      background-color: #0f172a !important;
+      color: #e2e8f0 !important;
+    }
+    body[data-theme="cyber"] {
+      --bg-base: #060913;
+      --bg-glow-1: rgba(99, 102, 241, 0.22);
+      --bg-glow-2: rgba(16, 185, 129, 0.16);
+      --card-bg: rgba(15, 23, 42, 0.72);
+      --card-border: rgba(148, 163, 184, 0.14);
+      --accent-from: #6366f1;
+      --accent-via: #8b5cf6;
+      --accent-to: #10b981;
+    }
+    body[data-theme="sunset"] {
+      --bg-base: #120814;
+      --bg-glow-1: rgba(244, 63, 94, 0.22);
+      --bg-glow-2: rgba(245, 158, 11, 0.18);
+      --card-bg: rgba(30, 14, 34, 0.72);
+      --card-border: rgba(251, 113, 133, 0.18);
+      --accent-from: #f43f5e;
+      --accent-via: #ec4899;
+      --accent-to: #f59e0b;
+    }
+    body[data-theme="ocean"] {
+      --bg-base: #041019;
+      --bg-glow-1: rgba(6, 182, 212, 0.22);
+      --bg-glow-2: rgba(59, 130, 246, 0.18);
+      --card-bg: rgba(8, 28, 44, 0.74);
+      --card-border: rgba(56, 189, 248, 0.16);
+      --accent-from: #06b6d4;
+      --accent-via: #3b82f6;
+      --accent-to: #14b8a6;
+    }
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background-color: var(--bg-base);
+      background-image:
+        radial-gradient(circle at 12% 10%, var(--bg-glow-1), transparent 38%),
+        radial-gradient(circle at 88% 82%, var(--bg-glow-2), transparent 40%);
+      background-attachment: fixed;
+    }
+    .glass-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      backdrop-filter: blur(18px);
+      box-shadow: 0 18px 45px -20px rgba(0, 0, 0, 0.65);
+    }
+    .accent-gradient {
+      background: linear-gradient(135deg, var(--accent-from), var(--accent-via), var(--accent-to));
+    }
+    .code-scroll::-webkit-scrollbar { width: 6px; height: 6px; }
+    .code-scroll::-webkit-scrollbar-thumb { background: #334155; border-radius: 9999px; }
+    .phone-shadow {
+      box-shadow:
+        0 28px 65px -12px rgba(0, 0, 0, 0.75),
+        0 0 0 1px rgba(255, 255, 255, 0.12),
+        inset 0 0 18px rgba(255, 255, 255, 0.04);
+    }
+    @keyframes pulseDot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.45; transform: scale(0.85); }
+    }
+    .pulse-dot { animation: pulseDot 1.6s ease-in-out infinite; }
+  </style>
+</head>
+<body data-theme="royal" class="text-slate-100 min-h-screen antialiased selection:bg-indigo-500/30">
+
+  <!-- Toast Container -->
+  <div id="toastContainer" class="fixed bottom-4 right-4 z-50 flex flex-col gap-2 max-w-sm pointer-events-none"></div>
+
+  <!-- Top Navigation -->
+  <header id="mainHeader" class="sticky top-0 z-30 border-b border-white/10 backdrop-blur-xl" style="background-color: #1E3A8A;">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-3">
+      <div class="flex items-center gap-3 min-w-0">
+        <div class="w-10 h-10 rounded-xl accent-gradient flex items-center justify-center shadow-lg shadow-indigo-500/25 shrink-0">
+          <i data-lucide="smartphone" class="w-5 h-5 text-white"></i>
+        </div>
+        <div class="min-w-0">
+          <div class="flex items-center gap-2">
+            <span class="text-lg font-extrabold tracking-tight text-white">twistbobi</span>
+            <span class="hidden sm:inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-semibold bg-emerald-500/15 text-emerald-300 border border-emerald-500/30">
+              APK Studio v2
+            </span>
+          </div>
+          <p class="text-xs text-slate-400 truncate hidden sm:block">Stylish Website-to-APK Converter &amp; Android Project Generator</p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2 shrink-0">
+        <!-- Studio Theme Switcher -->
+        <div class="hidden md:flex items-center gap-1 rounded-xl bg-slate-900/90 p-1 border border-white/10">
+          <button type="button" data-studio-theme="royal" class="studio-theme-btn px-2.5 py-1 rounded-lg text-[11px] font-semibold bg-white/20 text-white transition">Royal</button>
+          <button type="button" data-studio-theme="cyber" class="studio-theme-btn px-2.5 py-1 rounded-lg text-[11px] font-semibold text-slate-300 hover:text-white transition">Cyber</button>
+          <button type="button" data-studio-theme="sunset" class="studio-theme-btn px-2.5 py-1 rounded-lg text-[11px] font-semibold text-slate-400 hover:text-white transition">Sunset</button>
+          <button type="button" data-studio-theme="ocean" class="studio-theme-btn px-2.5 py-1 rounded-lg text-[11px] font-semibold text-slate-400 hover:text-white transition">Ocean</button>
+        </div>
+
+        <button id="btnLoadDemo" type="button" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold bg-white/10 hover:bg-white/15 text-white border border-white/10 transition">
+          <i data-lucide="sparkles" class="w-3.5 h-3.5 text-amber-400"></i>
+          <span>Load Demo Site</span>
+        </button>
+        <button id="btnResetAll" type="button" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium bg-slate-900/80 hover:bg-slate-800 text-slate-300 border border-white/10 transition">
+          <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>
+          <span class="hidden sm:inline">Reset</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Workspace -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 py-6 lg:py-8">
+
+    <!-- Step Progress Strip -->
+    <div class="mb-6 grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+      <div class="flex items-center gap-2.5 px-3.5 py-2.5 rounded-2xl glass-card">
+        <span class="w-7 h-7 rounded-xl accent-gradient text-white text-xs font-bold flex items-center justify-center shrink-0">1</span>
+        <div class="min-w-0">
+          <div class="text-xs font-semibold text-white truncate">Upload Website</div>
+          <div id="step1Status" class="text-[11px] text-slate-400 truncate">HTML, ZIP, or URL</div>
+        </div>
+      </div>
+      <div class="flex items-center gap-2.5 px-3.5 py-2.5 rounded-2xl glass-card">
+        <span class="w-7 h-7 rounded-xl accent-gradient text-white text-xs font-bold flex items-center justify-center shrink-0">2</span>
+        <div class="min-w-0">
+          <div class="text-xs font-semibold text-white truncate">Icon &amp; Branding</div>
+          <div id="step2Status" class="text-[11px] text-slate-400 truncate">TwistBobi App</div>
+        </div>
+      </div>
+      <div class="flex items-center gap-2.5 px-3.5 py-2.5 rounded-2xl glass-card">
+        <span class="w-7 h-7 rounded-xl accent-gradient text-white text-xs font-bold flex items-center justify-center shrink-0">3</span>
+        <div class="min-w-0">
+          <div class="text-xs font-semibold text-white truncate">Splash &amp; Permissions</div>
+          <div id="step3Status" class="text-[11px] text-slate-400 truncate">WebView + SDK 34</div>
+        </div>
+      </div>
+      <div class="flex items-center gap-2.5 px-3.5 py-2.5 rounded-2xl glass-card">
+        <span class="w-7 h-7 rounded-xl bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-xs font-bold flex items-center justify-center shrink-0">4</span>
+        <div class="min-w-0">
+          <div class="text-xs font-semibold text-white truncate">Generate &amp; Download</div>
+          <div id="step4Status" class="text-[11px] text-slate-400 truncate">Ready to build</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Two-Column Layout -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+
+      <!-- Left Column: Configuration Forms -->
+      <div class="lg:col-span-7 space-y-6">
+
+        <!-- Card 1: Website Source -->
+        <section class="rounded-2xl glass-card p-5 sm:p-6">
+          <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+            <div class="flex items-center gap-2.5">
+              <div class="w-9 h-9 rounded-xl bg-indigo-500/15 text-indigo-300 border border-indigo-500/25 flex items-center justify-center">
+                <i data-lucide="globe" class="w-4 h-4"></i>
+              </div>
+              <div>
+                <h2 class="text-base font-bold text-white">1. Website Source</h2>
+                <p class="text-xs text-slate-400">Upload your website files/ZIP or wrap a live HTTPS URL</p>
+              </div>
+            </div>
+
+            <!-- Source Mode Switch -->
+            <div class="inline-flex rounded-xl bg-slate-950/90 p-1 border border-white/10">
+              <button id="tabModeUpload" type="button" class="px-3 py-1.5 rounded-lg text-xs font-semibold accent-gradient text-white transition">
+                Upload Files / ZIP
+              </button>
+              <button id="tabModeUrl" type="button" class="px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-white transition">
+                Website URL
+              </button>
+            </div>
+          </div>
+
+          <!-- Upload Mode Panel -->
+          <div id="panelModeUpload" class="space-y-4">
+            <div id="dropZone" class="relative rounded-2xl border-2 border-dashed border-slate-700 hover:border-indigo-400/80 bg-slate-950/50 p-6 text-center transition cursor-pointer group">
+              <input id="websiteFileInput" type="file" multiple accept=".html,.htm,.css,.js,.json,.png,.jpg,.jpeg,.svg,.webp,.zip,.txt,.woff2" class="hidden" />
+              <div class="mx-auto w-12 h-12 rounded-2xl bg-indigo-500/15 text-indigo-300 border border-indigo-500/25 flex items-center justify-center mb-3 group-hover:scale-105 transition">
+                <i data-lucide="upload-cloud" class="w-6 h-6"></i>
+              </div>
+              <p class="text-sm font-semibold text-slate-100">Drop your website <span class="text-indigo-400">.zip</span>, HTML, CSS, JS, or assets here</p>
+              <p class="text-xs text-slate-400 mt-1">All CSS &amp; JS files are bundled into <code class="font-mono text-indigo-300">assets/www/</code> and previewed live</p>
+              <div class="mt-4 flex flex-wrap items-center justify-center gap-2">
+                <button id="btnPickFiles" type="button" class="px-4 py-2 rounded-xl text-xs font-semibold accent-gradient text-white shadow-md shadow-indigo-500/20 hover:opacity-95 transition">
+                  Select Files / ZIP
+                </button>
+                <button id="btnPickFolder" type="button" class="px-4 py-2 rounded-xl text-xs font-semibold bg-slate-800/90 hover:bg-slate-700 text-slate-200 border border-white/10 transition">
+                  Select Folder
+                </button>
+              </div>
+              <input id="websiteFolderInput" type="file" webkitdirectory directory multiple class="hidden" />
+            </div>
+
+            <!-- Uploaded Files Summary -->
+            <div id="uploadedFilesBox" class="hidden rounded-xl bg-slate-950/80 border border-white/10 p-3.5">
+              <div class="flex items-center justify-between gap-2 mb-2.5">
+                <div class="flex items-center gap-2">
+                  <i data-lucide="folder-check" class="w-4 h-4 text-emerald-400"></i>
+                  <span id="uploadedFileStats" class="text-xs font-semibold text-slate-200">0 files loaded</span>
+                </div>
+                <button id="btnClearWebsiteFiles" type="button" class="text-[11px] font-medium text-rose-400 hover:text-rose-300">
+                  Clear files
+                </button>
+              </div>
+              <ul id="uploadedFilesList" class="max-h-36 overflow-y-auto code-scroll space-y-1 text-xs font-mono text-slate-400"></ul>
+            </div>
+          </div>
+
+          <!-- URL Mode Panel -->
+          <div id="panelModeUrl" class="hidden space-y-3">
+            <label for="websiteUrlInput" class="block text-xs font-medium text-slate-300">Target Website URL</label>
+            <div class="relative">
+              <i data-lucide="link" class="w-4 h-4 text-slate-500 absolute left-3.5 top-1/2 -translate-y-1/2"></i>
+              <input id="websiteUrlInput" type="url" value="https://twistbobi.app" placeholder="https://example.com" class="w-full pl-10 pr-3 py-2.5 rounded-xl bg-slate-950/90 border border-slate-700 focus:border-indigo-500 focus:outline-none text-sm text-white placeholder:text-slate-500" />
+            </div>
+            <p class="text-[11px] text-slate-400">The generated Android WebView loads this URL with hardware acceleration, file upload support, and custom back navigation.</p>
+          </div>
+        </section>
+
+        <!-- Card 2: App Identity & Icon Upload -->
+        <section class="rounded-2xl glass-card p-5 sm:p-6">
+          <div class="flex items-center gap-2.5 mb-4">
+            <div class="w-9 h-9 rounded-xl bg-violet-500/15 text-violet-300 border border-violet-500/25 flex items-center justify-center">
+              <i data-lucide="image" class="w-4 h-4"></i>
+            </div>
+            <div>
+              <h2 class="text-base font-bold text-white">2. App Name, Icon &amp; Adaptive Shape</h2>
+              <p class="text-xs text-slate-400">Upload your icon — twistbobi generates all 5 Android mipmap densities</p>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-12 gap-5 items-start">
+            <!-- Icon Uploader -->
+            <div class="sm:col-span-5 flex flex-col items-center p-4 rounded-2xl bg-slate-950/70 border border-white/10">
+              <canvas id="iconPreviewCanvas" width="144" height="144" class="w-24 h-24 rounded-2xl shadow-xl border border-white/15 bg-slate-900"></canvas>
+              <button id="btnUploadIcon" type="button" class="mt-3 w-full inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold accent-gradient text-white shadow-md hover:opacity-95 transition">
+                <i data-lucide="upload" class="w-3.5 h-3.5"></i>
+                <span>Upload Icon</span>
+              </button>
+              <input id="iconFileInput" type="file" accept="image/png,image/jpeg,image/webp,image/svg+xml" class="hidden" />
+
+              <!-- Icon Shape Selector -->
+              <div class="mt-3 w-full">
+                <div class="text-[11px] font-medium text-slate-400 mb-1.5 text-center">Adaptive Icon Shape</div>
+                <div class="grid grid-cols-3 gap-1.5">
+                  <button type="button" data-icon-shape="squircle" class="icon-shape-btn py-1 rounded-lg text-[11px] font-semibold bg-indigo-600 text-white transition">Squircle</button>
+                  <button type="button" data-icon-shape="circle" class="icon-shape-btn py-1 rounded-lg text-[11px] font-semibold bg-slate-800 text-slate-300 hover:text-white transition">Circle</button>
+                  <button type="button" data-icon-shape="square" class="icon-shape-btn py-1 rounded-lg text-[11px] font-semibold bg-slate-800 text-slate-300 hover:text-white transition">Rounded</button>
+                </div>
+              </div>
+
+              <!-- Preset Icons -->
+              <div class="mt-3 w-full">
+                <div class="text-[11px] font-medium text-slate-400 mb-1.5 text-center">Quick Presets</div>
+                <div class="grid grid-cols-4 gap-1.5">
+                  <button type="button" data-preset-icon="indigo" class="preset-icon-btn h-8 rounded-lg bg-gradient-to-br from-indigo-500 to-violet-600 text-white text-xs font-bold border border-white/20 hover:scale-105 transition">TB</button>
+                  <button type="button" data-preset-icon="emerald" class="preset-icon-btn h-8 rounded-lg bg-gradient-to-br from-emerald-500 to-teal-600 text-white text-xs font-bold border border-white/20 hover:scale-105 transition">APP</button>
+                  <button type="button" data-preset-icon="amber" class="preset-icon-btn h-8 rounded-lg bg-gradient-to-br from-amber-500 to-orange-600 text-white text-xs font-bold border border-white/20 hover:scale-105 transition">WEB</button>
+                  <button type="button" data-preset-icon="rose" class="preset-icon-btn h-8 rounded-lg bg-gradient-to-br from-rose-500 to-pink-600 text-white text-xs font-bold border border-white/20 hover:scale-105 transition">APK</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- App Metadata Fields -->
+            <div class="sm:col-span-7 space-y-3.5">
+              <div>
+                <label for="appNameInput" class="block text-xs font-medium text-slate-300 mb-1">App Name</label>
+                <input id="appNameInput" type="text" value="TwistBobi App" maxlength="32" placeholder="My Awesome App" class="w-full px-3 py-2 rounded-xl bg-slate-950/90 border border-slate-700 focus:border-indigo-500 focus:outline-none text-sm text-white" />
+              </div>
+
+              <div>
+                <label for="packageNameInput" class="block text-xs font-medium text-slate-300 mb-1">Package ID (Application ID)</label>
+                <input id="packageNameInput" type="text" value="com.twistbobi.app" placeholder="com.company.appname" class="w-full px-3 py-2 rounded-xl bg-slate-950/90 border border-slate-700 focus:border-indigo-500 focus:outline-none text-sm font-mono text-indigo-300" />
+              </div>
+
+              <div class="grid grid-cols-2 gap-3">
+                <div>
+                  <label for="versionNameInput" class="block text-xs font-medium text-slate-300 mb-1">Version Name</label>
+                  <input id="versionNameInput" type="text" value="1.0.0" class="w-full px-3 py-2 rounded-xl bg-slate-950/90 border border-slate-700 focus:border-indigo-500 focus:outline-none text-sm font-mono text-white" />
+                </div>
+                <div>
+                  <label for="versionCodeInput" class="block text-xs font-medium text-slate-300 mb-1">Version Code</label>
+                  <input id="versionCodeInput" type="number" min="1" value="1" class="w-full px-3 py-2 rounded-xl bg-slate-950/90 border border-slate-700 focus:border-indigo-500 focus:outline-none text-sm font-mono text-white" />
+                </div>
+              </div>
+
+              <div class="grid grid-cols-2 gap-3">
+                <div>
+                  <label for="orientationSelect" class="block text-xs font-medium text-slate-300 mb-1">Orientation</label>
+                  <select id="orientationSelect" class="w-full px-3 py-2 rounded-xl bg-slate-950/90 border border-slate-700 focus:border-indigo-500 focus:outline-none text-sm text-white">
+                    <option value="unspecified">Auto (Sensor)</option>
+                    <option value="portrait">Portrait Only</option>
+                    <option value="landscape">Landscape Only</option>
+                  </select>
+                </div>
+                <div>
+                  <label for="themeColorInput" class="block text-xs font-medium text-slate-300 mb-1">Status Bar Color</label>
+                  <div class="flex items-center gap-2">
+                    <input id="themeColorInput" type="color" value="#1E3A8A" class="h-9 w-11 rounded-lg bg-slate-950 border border-slate-700 cursor-pointer p-0.5" />
+                    <input id="themeColorHex" type="text" value="#1E3A8A" maxlength="7" class="w-full px-2.5 py-2 rounded-xl bg-slate-950/90 border border-slate-700 text-xs font-mono text-white" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Card 3: Splash Screen, WebView Features & Permissions -->
+        <section class="rounded-2xl glass-card p-5 sm:p-6">
+          <div class="flex items-center gap-2.5 mb-4">
+            <div class="w-9 h-9 rounded-xl bg-emerald-500/15 text-emerald-300 border border-emerald-500/25 flex items-center justify-center">
+              <i data-lucide="sliders" class="w-4 h-4"></i>
+            </div>
+            <div>
+              <h2 class="text-base font-bold text-white">3. Splash Screen, WebView &amp; Permissions</h2>
+              <p class="text-xs text-slate-400">Customize launch screen, WebView engine, and AndroidManifest permissions</p>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <!-- WebView & Splash -->
+            <div class="space-y-2.5 p-3.5 rounded-xl bg-slate-950/75 border border-white/10">
+              <div class="text-xs font-semibold text-slate-200 mb-1.5">Splash &amp; WebView Engine</div>
+              <label class="flex items-center justify-between gap-2 text-xs text-slate-300 cursor-pointer">
+                <span>Enable Splash Screen</span>
+                <input id="optSplash" type="checkbox" checked class="rounded border-slate-600 text-indigo-500 focus:ring-indigo-500 bg-slate-800" />
+              </label>
+              <label class="flex items-center justify-between gap-2 text-xs text-slate-300 cursor-pointer">
+                <span>Enable JavaScript &amp; DOM</span>
+                <input id="optEnableJs" type="checkbox" checked class="rounded border-slate-600 text-indigo-500 focus:ring-indigo-500 bg-slate-800" />
+              </label>
+              <label class="flex items-center justify-between gap-2 text-xs text-slate-300 cursor-pointer">
+                <span>Fullscreen (Hide Status Bar)</span>
+                <input id="optFullscreen" type="checkbox" class="rounded border-slate-600 text-indigo-500 focus:ring-indigo-500 bg-slate-800" />
+              </label>
+              <label class="flex items-center justify-between gap-2 text-xs text-slate-300 cursor-pointer">
+                <span>Pull-to-Refresh &amp; File Upload</span>
+                <input id="optFileUpload" type="checkbox" checked class="rounded border-slate-600 text-indigo-500 focus:ring-indigo-500 bg-slate-800" />
+              </label>
+              <label class="flex items-center justify-between gap-2 text-xs text-slate-300 cursor-pointer">
+                <span>Pinch-to-Zoom Controls</span>
+                <input id="optZoom" type="checkbox" class="rounded border-slate-600 text-indigo-500 focus:ring-indigo-500 bg-slate-800" />
+              </label>
+              <label class="flex items-center justify-between gap-2 text-xs text-slate-300 cursor-pointer">
+                <span>Hardware Acceleration</span>
+                <input id="optHardwareAccel" type="checkbox" checked class="rounded border-slate-600 text-indigo-500 focus:ring-indigo-500 bg-slate-800" />
+              </label>
+            </div>
+
+            <!-- Android Permissions -->
+            <div class="space-y-2.5 p-3.5 rounded-xl bg-slate-950/75 border border-white/10">
+              <div class="text-xs font-semibold text-slate-200 mb-1.5">Android Permissions</div>
+              <label class="flex items-center justify-between gap-2 text-xs text-slate-400">
+                <span>INTERNET (Required)</span>
+                <input type="checkbox" checked disabled class="rounded border-slate-700 text-indigo-500 bg-slate-800 opacity-60" />
+              </label>
+              <label class="flex items-center justify-between gap-2 text-xs text-slate-300 cursor-pointer">
+                <span>CAMERA</span>
+                <input id="permCamera" type="checkbox" class="rounded border-slate-600 text-indigo-500 focus:ring-indigo-500 bg-slate-800" />
+              </label>
+              <label class="flex items-center justify-between gap-2 text-xs text-slate-300 cursor-pointer">
+                <span>ACCESS_FINE_LOCATION</span>
+                <input id="permLocation" type="checkbox" class="rounded border-slate-600 text-indigo-500 focus:ring-indigo-500 bg-slate-800" />
+              </label>
+              <label class="flex items-center justify-between gap-2 text-xs text-slate-300 cursor-pointer">
+                <span>RECORD_AUDIO</span>
+                <input id="permAudio" type="checkbox" class="rounded border-slate-600 text-indigo-500 focus:ring-indigo-500 bg-slate-800" />
+              </label>
+              <label class="flex items-center justify-between gap-2 text-xs text-slate-300 cursor-pointer">
+                <span>POST_NOTIFICATIONS</span>
+                <input id="permNotifications" type="checkbox" class="rounded border-slate-600 text-indigo-500 focus:ring-indigo-500 bg-slate-800" />
+              </label>
+            </div>
+          </div>
+        </section>
+
+      </div>
+
+      <!-- Right Column: Live Android Preview & Build Output -->
+      <div class="lg:col-span-5 space-y-6 lg:sticky lg:top-24">
+
+        <!-- Live Phone Preview -->
+        <section class="rounded-2xl glass-card p-5">
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+            <div class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 pulse-dot"></span>
+              <h3 class="text-sm font-bold text-white">Live Android Preview</h3>
+            </div>
+            <div class="inline-flex rounded-xl bg-slate-950/90 p-1 border border-white/10">
+              <button id="btnPreviewLauncher" type="button" class="px-2.5 py-1 rounded-lg text-[11px] font-semibold bg-white/15 text-white transition">
+                Launcher Icon
+              </button>
+              <button id="btnPreviewSplash" type="button" class="px-2.5 py-1 rounded-lg text-[11px] font-semibold text-slate-400 hover:text-white transition">
+                Splash
+              </button>
+              <button id="btnPreviewApp" type="button" class="px-2.5 py-1 rounded-lg text-[11px] font-semibold text-slate-400 hover:text-white transition">
+                App Screen
+              </button>
+            </div>
+          </div>
+
+          <!-- Realistic Phone Frame -->
+          <div class="mx-auto w-64 rounded-[2.2rem] bg-slate-950 border-[5px] border-slate-800 p-2.5 phone-shadow relative">
+            <!-- Status Bar -->
+            <div id="phoneStatusBar" class="h-6 rounded-t-[1.45rem] px-3 flex items-center justify-between text-[10px] font-semibold text-white transition-colors" style="background-color: #1E3A8A;">
+              <span>12:30</span>
+              <div class="w-3 h-3 rounded-full bg-slate-950/80 border border-white/15"></div>
+              <span>5G 100%</span>
+            </div>
+
+            <!-- Screen Area -->
+            <div class="h-80 rounded-b-[1.45rem] overflow-hidden bg-slate-900 relative">
+              <!-- Launcher View -->
+              <div id="phoneLauncherView" class="h-full w-full bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 p-5 flex flex-col justify-between">
+                <div class="text-center mt-2">
+                  <div class="text-2xl font-light text-white/95">12:30</div>
+                  <div class="text-[10px] text-slate-400">Android 14 Launcher</div>
+                </div>
+
+                <!-- App Grid with User's App -->
+                <div class="grid grid-cols-3 gap-3 items-start">
+                  <div class="flex flex-col items-center gap-1 opacity-45">
+                    <div class="w-11 h-11 rounded-xl bg-slate-800 flex items-center justify-center">
+                      <i data-lucide="camera" class="w-5 h-5 text-slate-400"></i>
+                    </div>
+                    <span class="text-[9px] text-slate-400">Camera</span>
+                  </div>
+                  <div class="flex flex-col items-center gap-1">
+                    <img id="phoneLauncherIcon" alt="App Icon" class="w-12 h-12 shadow-lg ring-2 ring-white/25 object-cover bg-slate-800 rounded-2xl" />
+                    <span id="phoneLauncherName" class="text-[10px] font-semibold text-white text-center leading-tight line-clamp-2">TwistBobi App</span>
+                  </div>
+                  <div class="flex flex-col items-center gap-1 opacity-45">
+                    <div class="w-11 h-11 rounded-xl bg-slate-800 flex items-center justify-center">
+                      <i data-lucide="settings" class="w-5 h-5 text-slate-400"></i>
+                    </div>
+                    <span class="text-[9px] text-slate-400">Settings</span>
+                  </div>
+                </div>
+
+                <!-- Dock -->
+                <div class="h-10 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-around px-3">
+                  <div class="w-5 h-5 rounded-full bg-emerald-500/35"></div>
+                  <div class="w-5 h-5 rounded-full bg-sky-500/35"></div>
+                  <div class="w-5 h-5 rounded-full bg-amber-500/35"></div>
+                </div>
+              </div>
+
+              <!-- Splash View -->
+              <div id="phoneSplashView" class="hidden h-full w-full flex flex-col items-center justify-center p-6 text-center transition-colors" style="background-color: #1E3A8A;">
+                <img id="phoneSplashIcon" alt="Splash Icon" class="w-16 h-16 rounded-2xl shadow-2xl ring-2 ring-white/30 mb-3 object-cover" />
+                <div id="phoneSplashName" class="text-sm font-bold text-white">TwistBobi App</div>
+                <div class="text-[10px] text-white/70 mt-1">Loading WebView...</div>
+              </div>
+
+              <!-- In-App WebView Preview -->
+              <div id="phoneAppView" class="hidden h-full w-full bg-white flex flex-col">
+                <div id="phoneAppHeader" class="px-3 py-1.5 text-[11px] font-semibold text-white flex items-center justify-between shrink-0" style="background-color: #1E3A8A;">
+                  <span id="phoneAppTitle" class="truncate">TwistBobi App</span>
+                  <span class="text-[9px] opacity-80 font-mono">WebView</span>
+                </div>
+                <iframe id="phonePreviewIframe" title="Website Preview" sandbox="allow-scripts" class="w-full flex-1 bg-white border-0"></iframe>
+              </div>
+            </div>
+          </div>
+
+          <!-- Generate Action Button -->
+          <div class="mt-5 space-y-3">
+            <button id="btnGenerateApk" type="button" class="w-full py-3.5 px-4 rounded-xl accent-gradient text-white font-bold text-sm shadow-lg shadow-indigo-500/25 flex items-center justify-center gap-2 hover:opacity-95 transition active:scale-[0.99]">
+              <i data-lucide="hammer" class="w-4 h-4"></i>
+              <span>Generate APK &amp; All Project Files</span>
+            </button>
+
+            <!-- Build Progress & Logs -->
+            <div id="buildConsoleBox" class="hidden rounded-xl bg-slate-950/90 border border-white/10 p-3.5 space-y-2.5">
+              <div class="flex items-center justify-between text-xs">
+                <span id="buildStatusLabel" class="font-semibold text-indigo-300">Building project...</span>
+                <span id="buildPercentLabel" class="font-mono text-slate-400">0%</span>
+              </div>
+              <div class="w-full h-1.5 rounded-full bg-slate-800 overflow-hidden">
+                <div id="buildProgressBar" class="h-full accent-gradient transition-all duration-300" style="width: 0%;"></div>
+              </div>
+              <pre id="buildLogOutput" class="max-h-32 overflow-y-auto code-scroll text-[11px] font-mono text-emerald-300/90 leading-relaxed whitespace-pre-wrap"></pre>
+            </div>
+          </div>
+        </section>
+
+        <!-- Download & Generated Files Card -->
+        <section id="outputResultsCard" class="hidden rounded-2xl glass-card border border-emerald-500/35 p-5 space-y-4">
+          <div class="flex items-start justify-between gap-3">
+            <div class="flex items-center gap-2.5">
+              <div class="w-9 h-9 rounded-xl bg-emerald-500/15 text-emerald-400 border border-emerald-500/25 flex items-center justify-center shrink-0">
+                <i data-lucide="package-check" class="w-5 h-5"></i>
+              </div>
+              <div>
+                <h3 class="text-sm font-bold text-white">APK Project Bundle Ready</h3>
+                <p id="bundleMetaSummary" class="text-xs text-slate-400">All Android files &amp; icons generated</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Download Buttons -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+            <button id="btnDownloadProjectZip" type="button" class="py-2.5 px-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold flex items-center justify-center gap-1.5 shadow-md shadow-emerald-500/20 transition">
+              <i data-lucide="download" class="w-4 h-4"></i>
+              <span>Download Android Project (.zip)</span>
+            </button>
+            <button id="btnDownloadApkScript" type="button" class="py-2.5 px-3.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-white/10 text-xs font-semibold flex items-center justify-center gap-1.5 transition">
+              <i data-lucide="terminal" class="w-4 h-4 text-indigo-400"></i>
+              <span>Download Build Script (.sh)</span>
+            </button>
+          </div>
+
+          <div class="rounded-xl bg-amber-500/10 border border-amber-500/25 p-3 text-[11px] text-amber-200/90 leading-relaxed">
+            <strong>How to get your installable <code class="font-mono">.apk</code>:</strong> Browsers cannot run the Android SDK compiler (<code class="font-mono">aapt2</code>/<code class="font-mono">gradle</code>) locally. Your <code class="font-mono">.zip</code> includes the complete Android Studio project <strong>plus</strong> a <code class="font-mono">.github/workflows/build-apk.yml</code> workflow — open it in Android Studio (<em>Build &gt; Build APK</em>) or push to GitHub to auto-build your signed <code class="font-mono">.apk</code> in the cloud!
+          </div>
+
+          <!-- Generated Files Inspector -->
+          <div class="space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-semibold text-slate-300">Inspect Generated Files</span>
+              <div class="flex items-center gap-3">
+                <button id="btnDownloadActiveFile" type="button" class="text-[11px] font-medium text-emerald-400 hover:text-emerald-300 flex items-center gap-1">
+                  <i data-lucide="file-down" class="w-3 h-3"></i>
+                  <span>Download File</span>
+                </button>
+                <button id="btnCopyActiveFile" type="button" class="text-[11px] font-medium text-indigo-400 hover:text-indigo-300 flex items-center gap-1">
+                  <i data-lucide="copy" class="w-3 h-3"></i>
+                  <span>Copy Code</span>
+                </button>
+              </div>
+            </div>
+            <div id="generatedFileTabs" class="flex flex-wrap gap-1.5"></div>
+            <pre id="generatedFileViewer" class="max-h-56 overflow-auto code-scroll rounded-xl bg-slate-950/90 border border-white/10 p-3 text-[11px] font-mono text-slate-300 leading-relaxed"></pre>
+          </div>
+        </section>
+
+      </div>
+    </div>
+  </main>
+
+  <script>
+    (function () {
+      'use strict';
+
+      const state = {
+        sourceMode: 'upload',
+        websiteFiles: [],
+        websiteUrl: 'https://twistbobi.app',
+        appName: 'TwistBobi App',
+        packageName: 'com.twistbobi.app',
+        versionName: '1.0.0',
+        versionCode: 1,
+        orientation: 'unspecified',
+        themeColor: '#1E3A8A',
+        iconShape: 'squircle',
+        iconDataUrl: '',
+        rawIconImg: null,
+        generatedFiles: {},
+        activeInspectedFile: '',
+        lastZipBlob: null,
+        isBuilding: false
+      };
+
+      const el = {
+        toastContainer: document.getElementById('toastContainer'),
+        btnLoadDemo: document.getElementById('btnLoadDemo'),
+        btnResetAll: document.getElementById('btnResetAll'),
+        tabModeUpload: document.getElementById('tabModeUpload'),
+        tabModeUrl: document.getElementById('tabModeUrl'),
+        panelModeUpload: document.getElementById('panelModeUpload'),
+        panelModeUrl: document.getElementById('panelModeUrl'),
+        dropZone: document.getElementById('dropZone'),
+        websiteFileInput: document.getElementById('websiteFileInput'),
+        websiteFolderInput: document.getElementById('websiteFolderInput'),
+        btnPickFiles: document.getElementById('btnPickFiles'),
+        btnPickFolder: document.getElementById('btnPickFolder'),
+        uploadedFilesBox: document.getElementById('uploadedFilesBox'),
+        uploadedFileStats: document.getElementById('uploadedFileStats'),
+        uploadedFilesList: document.getElementById('uploadedFilesList'),
+        btnClearWebsiteFiles: document.getElementById('btnClearWebsiteFiles'),
+        websiteUrlInput: document.getElementById('websiteUrlInput'),
+        iconPreviewCanvas: document.getElementById('iconPreviewCanvas'),
+        btnUploadIcon: document.getElementById('btnUploadIcon'),
+        iconFileInput: document.getElementById('iconFileInput'),
+        appNameInput: document.getElementById('appNameInput'),
+        packageNameInput: document.getElementById('packageNameInput'),
+        versionNameInput: document.getElementById('versionNameInput'),
+        versionCodeInput: document.getElementById('versionCodeInput'),
+        orientationSelect: document.getElementById('orientationSelect'),
+        themeColorInput: document.getElementById('themeColorInput'),
+        themeColorHex: document.getElementById('themeColorHex'),
+        optSplash: document.getElementById('optSplash'),
+        optEnableJs: document.getElementById('optEnableJs'),
+        optFullscreen: document.getElementById('optFullscreen'),
+        optFileUpload: document.getElementById('optFileUpload'),
+        optZoom: document.getElementById('optZoom'),
+        optHardwareAccel: document.getElementById('optHardwareAccel'),
+        permCamera: document.getElementById('permCamera'),
+        permLocation: document.getElementById('permLocation'),
+        permAudio: document.getElementById('permAudio'),
+        permNotifications: document.getElementById('permNotifications'),
+        btnPreviewLauncher: document.getElementById('btnPreviewLauncher'),
+        btnPreviewSplash: document.getElementById('btnPreviewSplash'),
+        btnPreviewApp: document.getElementById('btnPreviewApp'),
+        phoneLauncherView: document.getElementById('phoneLauncherView'),
+        phoneSplashView: document.getElementById('phoneSplashView'),
+        phoneAppView: document.getElementById('phoneAppView'),
+        phoneStatusBar: document.getElementById('phoneStatusBar'),
+        phoneAppHeader: document.getElementById('phoneAppHeader'),
+        phoneAppTitle: document.getElementById('phoneAppTitle'),
+        phoneLauncherIcon: document.getElementById('phoneLauncherIcon'),
+        phoneLauncherName: document.getElementById('phoneLauncherName'),
+        phoneSplashIcon: document.getElementById('phoneSplashIcon'),
+        phoneSplashName: document.getElementById('phoneSplashName'),
+        phonePreviewIframe: document.getElementById('phonePreviewIframe'),
+        btnGenerateApk: document.getElementById('btnGenerateApk'),
+        buildConsoleBox: document.getElementById('buildConsoleBox'),
+        buildStatusLabel: document.getElementById('buildStatusLabel'),
+        buildPercentLabel: document.getElementById('buildPercentLabel'),
+        buildProgressBar: document.getElementById('buildProgressBar'),
+        buildLogOutput: document.getElementById('buildLogOutput'),
+        outputResultsCard: document.getElementById('outputResultsCard'),
+        bundleMetaSummary: document.getElementById('bundleMetaSummary'),
+        btnDownloadProjectZip: document.getElementById('btnDownloadProjectZip'),
+        btnDownloadApkScript: document.getElementById('btnDownloadApkScript'),
+        generatedFileTabs: document.getElementById('generatedFileTabs'),
+        generatedFileViewer: document.getElementById('generatedFileViewer'),
+        btnCopyActiveFile: document.getElementById('btnCopyActiveFile'),
+        btnDownloadActiveFile: document.getElementById('btnDownloadActiveFile'),
+        step1Status: document.getElementById('step1Status'),
+        step2Status: document.getElementById('step2Status'),
+        step3Status: document.getElementById('step3Status'),
+        step4Status: document.getElementById('step4Status')
+      };
+
+      function showToast(message, type = 'info') {
+        const colors = {
+          info: 'bg-slate-900/95 border-white/15 text-slate-100',
+          success: 'bg-emerald-950/95 border-emerald-500/40 text-emerald-200',
+          error: 'bg-rose-950/95 border-rose-500/40 text-rose-200'
+        };
+        const toast = document.createElement('div');
+        toast.className = `pointer-events-auto px-3.5 py-2.5 rounded-xl border shadow-2xl text-xs font-medium flex items-center gap-2 ${colors[type] || colors.info}`;
+        toast.textContent = message;
+        el.toastContainer.appendChild(toast);
+        setTimeout(() => toast.remove(), 3200);
+      }
+
+      function applyShapeClip(ctx, size, shape) {
+        ctx.beginPath();
+        if (shape === 'circle') {
+          ctx.arc(size / 2, size / 2, size / 2, 0, Math.PI * 2);
+        } else if (shape === 'squircle') {
+          const r = size * 0.28;
+          ctx.moveTo(r, 0);
+          ctx.lineTo(size - r, 0);
+          ctx.quadraticCurveTo(size, 0, size, r);
+          ctx.lineTo(size, size - r);
+          ctx.quadraticCurveTo(size, size, size - r, size);
+          ctx.lineTo(r, size);
+          ctx.quadraticCurveTo(0, size, 0, size - r);
+          ctx.lineTo(0, r);
+          ctx.quadraticCurveTo(0, 0, r, 0);
+        } else {
+          const r = size * 0.14;
+          ctx.roundRect ? ctx.roundRect(0, 0, size, size, r) : ctx.rect(0, 0, size, size);
+        }
+        ctx.closePath();
+        ctx.clip();
+      }
+
+      function drawPresetIcon(presetKey) {
+        const palettes = {
+          indigo: ['#1E3A8A', '#1d4ed8', 'TB'],
+          emerald: ['#10b981', '#0d9488', 'APP'],
+          amber: ['#f59e0b', '#ea580c', 'WEB'],
+          rose: ['#f43f5e', '#db2777', 'APK']
+        };
+        const [c1, c2, label] = palettes[presetKey] || palettes.indigo;
+        state.rawIconImg = { type: 'preset', c1, c2, label };
+        renderIconCanvas();
+      }
+
+      function renderIconCanvas() {
+        const canvas = el.iconPreviewCanvas;
+        const ctx = canvas.getContext('2d');
+        const size = 144;
+        ctx.clearRect(0, 0, size, size);
+        ctx.save();
+        applyShapeClip(ctx, size, state.iconShape);
+
+        if (state.rawIconImg && state.rawIconImg.type === 'image') {
+          const img = state.rawIconImg.img;
+          const scale = Math.max(size / img.width, size / img.height);
+          const w = img.width * scale;
+          const h = img.height * scale;
+          ctx.drawImage(img, (size - w) / 2, (size - h) / 2, w, h);
+        } else {
+          const { c1, c2, label } = state.rawIconImg || { c1: '#1E3A8A', c2: '#7c3aed', label: 'TB' };
+          const grad = ctx.createLinearGradient(0, 0, size, size);
+          grad.addColorStop(0, c1);
+          grad.addColorStop(1, c2);
+          ctx.fillStyle = grad;
+          ctx.fillRect(0, 0, size, size);
+
+          ctx.fillStyle = 'rgba(255,255,255,0.14)';
+          ctx.beginPath();
+          ctx.arc(size * 0.78, size * 0.22, size * 0.28, 0, Math.PI * 2);
+          ctx.fill();
+
+          ctx.fillStyle = '#ffffff';
+          ctx.font = '800 40px Inter, sans-serif';
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          ctx.fillText(label, size / 2, size / 2 + 2);
+        }
+        ctx.restore();
+
+        state.iconDataUrl = canvas.toDataURL('image/png');
+        el.phoneLauncherIcon.src = state.iconDataUrl;
+        el.phoneSplashIcon.src = state.iconDataUrl;
+        const radiusClass = state.iconShape === 'circle' ? 'rounded-full' : state.iconShape === 'squircle' ? 'rounded-2xl' : 'rounded-lg';
+        el.phoneLauncherIcon.className = `w-12 h-12 shadow-lg ring-2 ring-white/25 object-cover bg-slate-800 ${radiusClass}`;
+        el.phoneSplashIcon.className = `w-16 h-16 shadow-2xl ring-2 ring-white/30 mb-3 object-cover ${radiusClass}`;
+      }
+
+      function loadCustomIconFile(file) {
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const img = new Image();
+          img.onload = () => {
+            state.rawIconImg = { type: 'image', img };
+            renderIconCanvas();
+            el.step2Status.textContent = file.name;
+            showToast('Custom app icon applied!', 'success');
+          };
+          img.onerror = () => showToast('Could not read image file.', 'error');
+          img.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      }
+
+      function generateMipmapPngBlob(size) {
+        return new Promise((resolve) => {
+          const img = new Image();
+          img.onload = () => {
+            const c = document.createElement('canvas');
+            c.width = size;
+            c.height = size;
+            const ctx = c.getContext('2d');
+            ctx.drawImage(img, 0, 0, size, size);
+            c.toBlob((blob) => resolve(blob), 'image/png');
+          };
+          img.src = state.iconDataUrl;
+        });
+      }
+
+      async function handleWebsiteUpload(fileList) {
+        const files = Array.from(fileList || []);
+        if (!files.length) return;
+        const loaded = [];
+        for (const f of files) {
+          if (f.name.toLowerCase().endsWith('.zip') && typeof JSZip !== 'undefined') {
+            try {
+              const zip = await JSZip.loadAsync(f);
+              const entries = Object.values(zip.files).filter((entry) => !entry.dir);
+              for (const entry of entries) {
+                const uint8 = await entry.async('uint8array');
+                loaded.push({ path: entry.name.replace(/^\/+/, ''), content: uint8, size: uint8.byteLength });
+              }
+            } catch (err) {
+              showToast(`Failed to extract ${f.name}`, 'error');
+            }
+          } else {
+            const buf = await f.arrayBuffer();
+            const uint8 = new Uint8Array(buf);
+            const relPath = (f.webkitRelativePath && f.webkitRelativePath.trim()) ? f.webkitRelativePath : f.name;
+            loaded.push({ path: relPath.replace(/^\/+/, ''), content: uint8, size: uint8.byteLength });
+          }
+        }
+        if (loaded.length > 0) {
+          state.websiteFiles = loaded;
+          renderUploadedFiles();
+          updatePhoneAppPreview();
+          showToast(`Loaded ${loaded.length} website file(s)`, 'success');
+        }
+      }
+
+      function formatBytes(bytes) {
+        if (bytes < 1024) return `${bytes} B`;
+        if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
+        return `${(bytes / (1024 * 1024)).toFixed(2)} MB`;
+      }
+
+      function escapeHtml(str) {
+        return String(str).replace(/[&<>"']/g, (m) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m]));
+      }
+
+      function renderUploadedFiles() {
+        if (!state.websiteFiles.length) {
+          el.uploadedFilesBox.classList.add('hidden');
+          el.step1Status.textContent = state.sourceMode === 'url' ? state.websiteUrl : 'HTML, ZIP, or URL';
+          return;
+        }
+        el.uploadedFilesBox.classList.remove('hidden');
+        const totalSize = state.websiteFiles.reduce((acc, f) => acc + f.size, 0);
+        el.uploadedFileStats.textContent = `${state.websiteFiles.length} file(s) • ${formatBytes(totalSize)}`;
+        el.step1Status.textContent = `${state.websiteFiles.length} files (${formatBytes(totalSize)})`;
+        el.uploadedFilesList.innerHTML = state.websiteFiles
+          .slice(0, 60)
+          .map((f) => `<li class="flex justify-between gap-2"><span>${escapeHtml(f.path)}</span><span class="text-slate-500 shrink-0">${formatBytes(f.size)}</span></li>`)
+          .join('');
+      }
+
+      function syncIdentityUI() {
+        state.appName = el.appNameInput.value.trim() || 'TwistBobi App';
+        state.packageName = el.packageNameInput.value.trim() || 'com.twistbobi.app';
+        state.versionName = el.versionNameInput.value.trim() || '1.0.0';
+        state.versionCode = Math.max(1, parseInt(el.versionCodeInput.value, 10) || 1);
+        state.orientation = el.orientationSelect.value;
+        state.themeColor = el.themeColorHex.value.trim() || '#1E3A8A';
+
+        el.phoneLauncherName.textContent = state.appName;
+        el.phoneAppTitle.textContent = state.appName;
+        el.phoneSplashName.textContent = state.appName;
+        el.phoneStatusBar.style.backgroundColor = state.themeColor;
+        el.phoneAppHeader.style.backgroundColor = state.themeColor;
+        el.phoneSplashView.style.backgroundColor = state.themeColor;
+        el.phoneStatusBar.style.display = el.optFullscreen.checked ? 'none' : 'flex';
+        el.step2Status.textContent = state.appName;
+      }
+
+      function updatePhoneAppPreview() {
+        if (state.sourceMode === 'url') {
+          const safeUrl = escapeHtml(state.websiteUrl);
+          el.phonePreviewIframe.srcdoc = `<!DOCTYPE html><html><body style="font-family:sans-serif;display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;margin:0;background:#f8fafc;color:#0f172a;text-align:center;padding:16px;"><div style="font-size:28px;margin-bottom:8px;">🌐</div><div style="font-weight:700;font-size:14px;">WebView Target URL</div><div style="font-size:11px;color:#1E3A8A;word-break:break-all;margin-top:4px;">${safeUrl}</div></body></html>`;
+          return;
+        }
+        const indexFile = state.websiteFiles.find((f) => /(^|\/)index\.html?$/i.test(f.path))
+          || state.websiteFiles.find((f) => /\.html?$/i.test(f.path));
+        if (indexFile) {
+          let html = new TextDecoder().decode(indexFile.content);
+          // Inline matching CSS & JS files from uploaded bundle for accurate live preview
+          const cssFiles = state.websiteFiles.filter((f) => /\.css$/i.test(f.path));
+          const jsFiles = state.websiteFiles.filter((f) => /\.js$/i.test(f.path));
+          if (cssFiles.length) {
+            const combinedCss = cssFiles.map((f) => new TextDecoder().decode(f.content)).join('\n');
+            html = html.replace('</head>', `<style>${combinedCss}</style></head>`);
+          }
+          if (jsFiles.length) {
+            const combinedJs = jsFiles.map((f) => new TextDecoder().decode(f.content)).join('\n');
+            html = html.replace('</body>', `<script>${combinedJs}<\/script></body>`);
+          }
+          el.phonePreviewIframe.srcdoc = html;
+        } else {
+          el.phonePreviewIframe.srcdoc = `<!DOCTYPE html><html><body style="font-family:sans-serif;display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;margin:0;background:#f8fafc;color:#475569;text-align:center;padding:16px;"><div style="font-size:26px;margin-bottom:8px;">📱</div><div style="font-weight:600;font-size:13px;">No HTML uploaded yet</div><div style="font-size:11px;margin-top:4px;">Upload your website or click Load Demo Site</div></body></html>`;
+        }
+      }
+
+      function buildAndroidSources() {
+        const pkg = state.packageName.replace(/[^a-zA-Z0-9_.]/g, '').toLowerCase() || 'com.twistbobi.app';
+        const pkgPath = pkg.replace(/\./g, '/');
+        const safeAppName = state.appName.replace(/[<>&'"]/g, '');
+        const entryTarget = state.sourceMode === 'url' ? state.websiteUrl : 'file:///android_asset/www/index.html';
+
+        const permissionsXml = [
+          '    <uses-permission android:name="android.permission.INTERNET" />',
+          '    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />',
+          el.permCamera.checked ? '    <uses-permission android:name="android.permission.CAMERA" />' : '',
+          el.permLocation.checked ? '    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />' : '',
+          el.permAudio.checked ? '    <uses-permission android:name="android.permission.RECORD_AUDIO" />' : '',
+          el.permNotifications.checked ? '    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />' : ''
+        ].filter(Boolean).join('\n');
+
+        const manifestXml = `<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="${pkg}">
+
+${permissionsXml}
+
+    <application
+        android:allowBackup="true"
+        android:hardwareAccelerated="${el.optHardwareAccel ? el.optHardwareAccel.checked : true}"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:usesCleartextTraffic="true"
+        android:theme="@style/Theme.TwistBobiApp">
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:screenOrientation="${state.orientation}"
+            android:configChanges="orientation|screenSize|keyboardHidden">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>`;
+
+        const mainActivityJava = `package ${pkg};
+
+import android.annotation.SuppressLint;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.view.View;
+import android.view.WindowManager;
+import android.webkit.WebChromeClient;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
+import android.widget.LinearLayout;
+import androidx.appcompat.app.AppCompatActivity;
+
+public class MainActivity extends AppCompatActivity {
+    private WebView webView;
+
+    @SuppressLint("SetJavaScriptEnabled")
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        ${el.optFullscreen.checked ? 'getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);' : ''}
+        setContentView(R.layout.activity_main);
+
+        LinearLayout splashOverlay = findViewById(R.id.splashOverlay);
+        ${el.optSplash.checked ? 'new Handler(Looper.getMainLooper()).postDelayed(() -> splashOverlay.setVisibility(View.GONE), 1400);' : 'splashOverlay.setVisibility(View.GONE);'}
+
+        webView = findViewById(R.id.webview);
+        WebSettings settings = webView.getSettings();
+        settings.setJavaScriptEnabled(${el.optEnableJs.checked});
+        settings.setDomStorageEnabled(${el.optEnableJs.checked});
+        settings.setSupportZoom(${el.optZoom.checked});
+        settings.setBuiltInZoomControls(${el.optZoom.checked});
+        settings.setDisplayZoomControls(false);
+        settings.setAllowFileAccess(${el.optFileUpload.checked});
+
+        webView.setWebViewClient(new WebViewClient());
+        webView.setWebChromeClient(new WebChromeClient());
+        webView.loadUrl("${entryTarget}");
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (webView != null && webView.canGoBack()) {
+            webView.goBack();
+        } else {
+            super.onBackPressed();
+        }
+    }
+}`;
+
+        const buildGradle = `plugins {
+    id 'com.android.application'
+}
+
+android {
+    namespace '${pkg}'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId "${pkg}"
+        minSdk 24
+        targetSdk 34
+        versionCode ${state.versionCode}
+        versionName "${state.versionName}"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+}
+
+dependencies {
+    implementation 'androidx.appcompat:appcompat:1.7.0'
+    implementation 'com.google.android.material:material:1.12.0'
+}`;
+
+        const activityMainXml = `<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <WebView
+        android:id="@+id/webview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <LinearLayout
+        android:id="@+id/splashOverlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimary"
+        android:gravity="center"
+        android:orientation="vertical">
+        <ImageView
+            android:layout_width="84dp"
+            android:layout_height="84dp"
+            android:src="@mipmap/ic_launcher" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:text="@string/app_name"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+</FrameLayout>`;
+
+        const stringsXml = `<resources>
+    <string name="app_name">${safeAppName}</string>
+</resources>`;
+
+        const colorsXml = `<resources>
+    <color name="colorPrimary">${state.themeColor}</color>
+    <color name="colorPrimaryDark">${state.themeColor}</color>
+</resources>`;
+
+        const themesXml = `<resources>
+    <style name="Theme.TwistBobiApp" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="android:statusBarColor">@color/colorPrimaryDark</item>
+    </style>
+</resources>`;
+
+        const githubWorkflow = `name: Build Android APK (twistbobi)
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build-apk:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
+      - name: Build Debug APK
+        run: gradle assembleDebug
+      - name: Upload APK Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${safeAppName.replace(/[^a-zA-Z0-9_-]/g, '') || 'twistbobi'}-apk
+          path: app/build/outputs/apk/debug/*.apk
+`;
+
+        return {
+          'app/src/main/AndroidManifest.xml': manifestXml,
+          [`app/src/main/java/${pkgPath}/MainActivity.java`]: mainActivityJava,
+          'app/build.gradle': buildGradle,
+          'app/src/main/res/layout/activity_main.xml': activityMainXml,
+          'app/src/main/res/values/strings.xml': stringsXml,
+          'app/src/main/res/values/colors.xml': colorsXml,
+          'app/src/main/res/values/themes.xml': themesXml,
+          '.github/workflows/build-apk.yml': githubWorkflow
+        };
+      }
+
+      async function runBuildPipeline() {
+        if (state.isBuilding) return;
+        syncIdentityUI();
+
+        if (state.sourceMode === 'upload' && state.websiteFiles.length === 0) {
+          showToast('Please upload website files or click "Load Demo Site" first.', 'error');
+          return;
+        }
+        if (state.sourceMode === 'url' && !/^https?:\/\//i.test(el.websiteUrlInput.value.trim())) {
+          showToast('Please enter a valid http:// or https:// URL.', 'error');
+          return;
+        }
+
+        state.isBuilding = true;
+        el.btnGenerateApk.disabled = true;
+        el.buildConsoleBox.classList.remove('hidden');
+        el.outputResultsCard.classList.add('hidden');
+        el.buildLogOutput.textContent = '';
+
+        const steps = [
+          [18, 'Validating website bundle & permissions...'],
+          [40, `Generating ${state.iconShape} adaptive mipmap icons (mdpi → xxxhdpi)...`],
+          [65, `Writing AndroidManifest.xml & MainActivity.java (${state.packageName})...`],
+          [85, 'Adding GitHub Actions cloud APK builder workflow...'],
+          [100, 'Packaging complete Android Studio bundle (.zip)...']
+        ];
+
+        for (const [pct, msg] of steps) {
+          el.buildProgressBar.style.width = `${pct}%`;
+          el.buildPercentLabel.textContent = `${pct}%`;
+          el.buildStatusLabel.textContent = msg;
+          el.buildLogOutput.textContent += `[twistbobi] ${msg}\n`;
+          await new Promise((r) => setTimeout(r, 240));
+        }
+
+        const sources = buildAndroidSources();
+        state.generatedFiles = sources;
+
+        const zip = new JSZip();
+        for (const [filePath, content] of Object.entries(sources)) {
+          zip.file(filePath, content);
+        }
+        zip.file('settings.gradle', `rootProject.name = "${state.appName.replace(/[^a-zA-Z0-9_-]/g, '') || 'TwistBobiApp'}"\ninclude ':app'\n`);
+        zip.file('build.gradle', `buildscript {\n    repositories {\n        google()\n        mavenCentral()\n    }\n}\nallprojects {\n    repositories {\n        google()\n        mavenCentral()\n    }\n}\n`);
+
+        const mipmaps = [
+          ['mipmap-mdpi', 48],
+          ['mipmap-hdpi', 72],
+          ['mipmap-xhdpi', 96],
+          ['mipmap-xxhdpi', 144],
+          ['mipmap-xxxhdpi', 192]
+        ];
+        for (const [folder, size] of mipmaps) {
+          const blob = await generateMipmapPngBlob(size);
+          zip.file(`app/src/main/res/${folder}/ic_launcher.png`, blob);
+          zip.file(`app/src/main/res/${folder}/ic_launcher_round.png`, blob);
+        }
+
+        if (state.sourceMode === 'upload') {
+          for (const wf of state.websiteFiles) {
+            zip.file(`app/src/main/assets/www/${wf.path}`, wf.content);
+          }
+        }
+
+        state.lastZipBlob = await zip.generateAsync({ type: 'blob' });
+        const keys = Object.keys(sources);
+        state.activeInspectedFile = keys[0];
+        renderInspectorTabs();
+
+        el.step4Status.textContent = 'Bundle ready';
+        el.bundleMetaSummary.textContent = `${keys.length + mipmaps.length * 2 + state.websiteFiles.length} total files packaged`;
+        el.outputResultsCard.classList.remove('hidden');
+        state.isBuilding = false;
+        el.btnGenerateApk.disabled = false;
+        showToast('All Android files & icons generated!', 'success');
+      }
+
+      function renderInspectorTabs() {
+        const keys = Object.keys(state.generatedFiles);
+        el.generatedFileTabs.innerHTML = keys.map((k) => {
+          const shortName = k.split('/').pop();
+          const active = k === state.activeInspectedFile;
+          return `<button type="button" data-inspect-file="${escapeHtml(k)}" class="px-2.5 py-1 rounded-lg text-[11px] font-mono transition ${active ? 'accent-gradient text-white' : 'bg-slate-950/90 text-slate-400 hover:text-white border border-white/10'}">${escapeHtml(shortName)}</button>`;
+        }).join('');
+        el.generatedFileViewer.textContent = state.generatedFiles[state.activeInspectedFile] || '';
+      }
+
+      function triggerDownload(blob, filename) {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        setTimeout(() => URL.revokeObjectURL(url), 1500);
+      }
+
+      function loadDemoWebsite() {
+        const demoHtml = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TwistBobi Demo App</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="card">
+    <span class="badge">twistbobi WebView</span>
+    <h1>Welcome to Your App</h1>
+    <p>This stylish sample website is bundled with CSS &amp; JS and ready for Android.</p>
+    <button onclick="document.getElementById('msg').textContent='Interactive JS works inside Android WebView!'">Test Interaction</button>
+    <p id="msg" class="msg"></p>
+  </div>
+</body>
+</html>`;
+        const demoCss = `body { font-family: system-ui, sans-serif; margin: 0; padding: 18px; background: linear-gradient(135deg, #0f172a, #1e1b4b); color: #f8fafc; min-height: 100vh; }
+.card { background: rgba(30, 41, 59, 0.85); border-radius: 18px; padding: 18px; border: 1px solid rgba(255,255,255,0.12); }
+.badge { display: inline-block; font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 999px; background: rgba(99,102,241,0.25); color: #a5b4fc; margin-bottom: 8px; }
+h1 { margin: 0 0 8px; font-size: 18px; color: #fff; }
+p { margin: 0 0 14px; font-size: 12px; color: #cbd5e1; line-height: 1.5; }
+button { background: linear-gradient(135deg, #6366f1, #10b981); color: #fff; border: 0; padding: 10px 14px; border-radius: 10px; font-weight: 700; font-size: 12px; width: 100%; }
+.msg { margin-top: 12px; color: #34d399; font-weight: 600; }`;
+        const enc = new TextEncoder();
+        switchSourceMode('upload');
+        state.websiteFiles = [
+          { path: 'index.html', content: enc.encode(demoHtml), size: demoHtml.length },
+          { path: 'styles.css', content: enc.encode(demoCss), size: demoCss.length }
+        ];
+        renderUploadedFiles();
+        updatePhoneAppPreview();
+        showToast('Loaded stylish demo website!', 'success');
+      }
+
+      function switchSourceMode(mode) {
+        state.sourceMode = mode;
+        if (mode === 'upload') {
+          el.tabModeUpload.className = 'px-3 py-1.5 rounded-lg text-xs font-semibold accent-gradient text-white transition';
+          el.tabModeUrl.className = 'px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-white transition';
+          el.panelModeUpload.classList.remove('hidden');
+          el.panelModeUrl.classList.add('hidden');
+        } else {
+          el.tabModeUrl.className = 'px-3 py-1.5 rounded-lg text-xs font-semibold accent-gradient text-white transition';
+          el.tabModeUpload.className = 'px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-white transition';
+          el.panelModeUrl.classList.remove('hidden');
+          el.panelModeUpload.classList.add('hidden');
+        }
+        renderUploadedFiles();
+        updatePhoneAppPreview();
+      }
+
+      function switchPhoneTab(tab) {
+        el.phoneLauncherView.classList.toggle('hidden', tab !== 'launcher');
+        el.phoneSplashView.classList.toggle('hidden', tab !== 'splash');
+        el.phoneAppView.classList.toggle('hidden', tab !== 'app');
+        el.btnPreviewLauncher.className = tab === 'launcher' ? 'px-2.5 py-1 rounded-lg text-[11px] font-semibold bg-white/15 text-white transition' : 'px-2.5 py-1 rounded-lg text-[11px] font-semibold text-slate-400 hover:text-white transition';
+        el.btnPreviewSplash.className = tab === 'splash' ? 'px-2.5 py-1 rounded-lg text-[11px] font-semibold bg-white/15 text-white transition' : 'px-2.5 py-1 rounded-lg text-[11px] font-semibold text-slate-400 hover:text-white transition';
+        el.btnPreviewApp.className = tab === 'app' ? 'px-2.5 py-1 rounded-lg text-[11px] font-semibold bg-white/15 text-white transition' : 'px-2.5 py-1 rounded-lg text-[11px] font-semibold text-slate-400 hover:text-white transition';
+        if (tab === 'app') updatePhoneAppPreview();
+      }
+
+      // Event Listeners
+      document.querySelectorAll('.studio-theme-btn').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          document.body.dataset.theme = btn.dataset.studioTheme;
+          document.querySelectorAll('.studio-theme-btn').forEach((b) => {
+            b.className = b === btn
+              ? 'studio-theme-btn px-2.5 py-1 rounded-lg text-[11px] font-semibold bg-white/15 text-white transition'
+              : 'studio-theme-btn px-2.5 py-1 rounded-lg text-[11px] font-semibold text-slate-400 hover:text-white transition';
+          });
+        });
+      });
+
+      document.querySelectorAll('.icon-shape-btn').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          state.iconShape = btn.dataset.iconShape;
+          document.querySelectorAll('.icon-shape-btn').forEach((b) => {
+            b.className = b === btn
+              ? 'icon-shape-btn py-1 rounded-lg text-[11px] font-semibold bg-indigo-600 text-white transition'
+              : 'icon-shape-btn py-1 rounded-lg text-[11px] font-semibold bg-slate-800 text-slate-300 hover:text-white transition';
+          });
+          renderIconCanvas();
+        });
+      });
+
+      el.tabModeUpload.addEventListener('click', () => switchSourceMode('upload'));
+      el.tabModeUrl.addEventListener('click', () => switchSourceMode('url'));
+
+      el.btnPickFiles.addEventListener('click', (e) => { e.stopPropagation(); el.websiteFileInput.click(); });
+      el.btnPickFolder.addEventListener('click', (e) => { e.stopPropagation(); el.websiteFolderInput.click(); });
+      el.dropZone.addEventListener('click', () => el.websiteFileInput.click());
+      el.websiteFileInput.addEventListener('change', (e) => handleWebsiteUpload(e.target.files));
+      el.websiteFolderInput.addEventListener('change', (e) => handleWebsiteUpload(e.target.files));
+
+      el.dropZone.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        el.dropZone.classList.add('border-indigo-400', 'bg-indigo-500/10');
+      });
+      el.dropZone.addEventListener('dragleave', () => {
+        el.dropZone.classList.remove('border-indigo-400', 'bg-indigo-500/10');
+      });
+      el.dropZone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        el.dropZone.classList.remove('border-indigo-400', 'bg-indigo-500/10');
+        handleWebsiteUpload(e.dataTransfer.files);
+      });
+
+      el.btnClearWebsiteFiles.addEventListener('click', () => {
+        state.websiteFiles = [];
+        el.websiteFileInput.value = '';
+        el.websiteFolderInput.value = '';
+        renderUploadedFiles();
+        updatePhoneAppPreview();
+      });
+
+      el.websiteUrlInput.addEventListener('input', () => {
+        state.websiteUrl = el.websiteUrlInput.value.trim();
+        if (state.sourceMode === 'url') {
+          el.step1Status.textContent = state.websiteUrl || 'Enter URL';
+          updatePhoneAppPreview();
+        }
+      });
+
+      el.btnUploadIcon.addEventListener('click', () => el.iconFileInput.click());
+      el.iconFileInput.addEventListener('change', (e) => loadCustomIconFile(e.target.files[0]));
+      document.querySelectorAll('.preset-icon-btn').forEach((btn) => {
+        btn.addEventListener('click', () => drawPresetIcon(btn.dataset.presetIcon));
+      });
+
+      el.appNameInput.addEventListener('input', () => {
+        const slug = el.appNameInput.value.toLowerCase().replace(/[^a-z0-9]/g, '') || 'app';
+        el.packageNameInput.value = `com.twistbobi.${slug}`;
+        syncIdentityUI();
+      });
+      [el.packageNameInput, el.versionNameInput, el.versionCodeInput, el.orientationSelect, el.optFullscreen].forEach((input) => {
+        input.addEventListener('input', syncIdentityUI);
+        input.addEventListener('change', syncIdentityUI);
+      });
+
+      el.themeColorInput.addEventListener('input', () => {
+        el.themeColorHex.value = el.themeColorInput.value;
+        syncIdentityUI();
+      });
+      el.themeColorHex.addEventListener('input', () => {
+        if (/^#[0-9a-fA-F]{6}$/.test(el.themeColorHex.value)) {
+          el.themeColorInput.value = el.themeColorHex.value;
+          syncIdentityUI();
+        }
+      });
+
+      el.btnPreviewLauncher.addEventListener('click', () => switchPhoneTab('launcher'));
+      el.btnPreviewSplash.addEventListener('click', () => switchPhoneTab('splash'));
+      el.btnPreviewApp.addEventListener('click', () => switchPhoneTab('app'));
+
+      el.btnGenerateApk.addEventListener('click', runBuildPipeline);
+
+      el.generatedFileTabs.addEventListener('click', (e) => {
+        const btn = e.target.closest('[data-inspect-file]');
+        if (!btn) return;
+        state.activeInspectedFile = btn.dataset.inspectFile;
+        renderInspectorTabs();
+      });
+
+      el.btnDownloadActiveFile.addEventListener('click', () => {
+        const text = state.generatedFiles[state.activeInspectedFile] || '';
+        const name = (state.activeInspectedFile || 'file.txt').split('/').pop();
+        triggerDownload(new Blob([text], { type: 'text/plain' }), name);
+      });
+
+      el.btnCopyActiveFile.addEventListener('click', () => {
+        const text = state.generatedFiles[state.activeInspectedFile] || '';
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(() => showToast('Copied to clipboard!', 'success')).catch(() => fallbackCopy(text));
+        } else {
+          fallbackCopy(text);
+        }
+      });
+
+      function fallbackCopy(text) {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        ta.remove();
+        showToast('Copied to clipboard!', 'success');
+      }
+
+      el.btnDownloadProjectZip.addEventListener('click', () => {
+        if (!state.lastZipBlob) return;
+        const safeSlug = state.appName.toLowerCase().replace(/[^a-z0-9]+/g, '-') || 'twistbobi-app';
+        triggerDownload(state.lastZipBlob, `${safeSlug}-android-project.zip`);
+        showToast('Downloading Android project ZIP...', 'success');
+      });
+
+      el.btnDownloadApkScript.addEventListener('click', () => {
+        const script = `#!/usr/bin/env bash
+set -e
+echo "Building ${state.appName} (${state.packageName})..."
+./gradlew assembleDebug
+echo "APK generated at app/build/outputs/apk/debug/app-debug.apk"
+`;
+        triggerDownload(new Blob([script], { type: 'text/x-shellscript' }), 'build-apk.sh');
+        showToast('Downloaded build-apk.sh', 'success');
+      });
+
+      el.btnLoadDemo.addEventListener('click', loadDemoWebsite);
+
+      el.btnResetAll.addEventListener('click', () => {
+        state.websiteFiles = [];
+        state.iconShape = 'squircle';
+        el.appNameInput.value = 'TwistBobi App';
+        el.packageNameInput.value = 'com.twistbobi.app';
+        el.versionNameInput.value = '1.0.0';
+        el.versionCodeInput.value = '1';
+        el.themeColorInput.value = '#1E3A8A';
+        el.themeColorHex.value = '#1E3A8A';
+        el.optFullscreen.checked = false;
+        el.outputResultsCard.classList.add('hidden');
+        el.buildConsoleBox.classList.add('hidden');
+        drawPresetIcon('indigo');
+        renderUploadedFiles();
+        syncIdentityUI();
+        updatePhoneAppPreview();
+        showToast('Workspace reset', 'info');
+      });
+
+      if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
+      }
+      drawPresetIcon('indigo');
+      syncIdentityUI();
+      updatePhoneAppPreview();
+    })();
+  </script>
+</body>
+</html>
